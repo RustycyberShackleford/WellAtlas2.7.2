@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="wa-main">
+  <aside class="wa-sidebar">
+    <h2>Create / Edit Site</h2>
+    <form id="siteForm" action="{{ url_for('create_site') }}" method="post">
+      <label>Site Name</label>
+      <input name="name" placeholder="e.g., Brown Well #3" list="siteNames">
+      <datalist id="siteNames"></datalist>
+
+      <label>Job #</label>
+      <input name="job_number" placeholder="e.g., WA-2025-101" list="jobNumbers">
+      <datalist id="jobNumbers"></datalist>
+
+      <label>Customer</label>
+      <input name="customer" placeholder="e.g., North State Drilling" list="customers">
+      <datalist id="customers"></datalist>
+
+      <label>Description / Notes</label>
+      <textarea name="description" rows="4" placeholder="Add notes in plain text..."></textarea>
+
+      <div class="coords">
+        <div><label>Latitude</label><input name="latitude" id="latField" placeholder="Click map or Locate Me"></div>
+        <div><label>Longitude</label><input name="longitude" id="lonField" placeholder="Click map or Locate Me"></div>
+      </div>
+      <div class="btnrow">
+        <button type="button" id="locateBtn">Locate Me</button>
+        <button type="submit">Create Site</button>
+      </div>
+    </form>
+
+    <div class="import-kml">
+      <h3>Import Google Earth (KML)</h3>
+      <form action="{{ url_for('import_kml') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="kmlfile" accept=".kml">
+        <button type="submit">Import</button>
+      </form>
+      <p class="hint">Imports Placemarks as sites (name + coordinates).</p>
+    </div>
+  </aside>
+
+  <section class="wa-mapwrap"><div id="map"></div></section>
+
+  <aside class="wa-list">
+    <h2>Sites</h2>
+    <ul id="siteList"></ul>
+  </aside>
+</div>
+{% endblock %}

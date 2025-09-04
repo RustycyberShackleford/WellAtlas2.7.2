@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="deleted-wrap">
+  <h2>Deleted Sites</h2>
+  {% if sites %}
+    <ul class="deleted-list">
+      {% for s in sites %}
+      <li>
+        <strong>{{ s['name'] or 'Untitled Site' }}</strong>
+        <form action="{{ url_for('restore_site', site_id=s['id']) }}" method="post">
+          <button type="submit">Restore</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}<p>No deleted sites.</p>{% endif %}
+</div>
+{% endblock %}
